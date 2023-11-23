@@ -1,71 +1,24 @@
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Show } from "../interfaces";
+import Info from "./Info";
+import { formatDurationFromMinutes } from "@/utils";
 
-const ShowInfo: React.FC = () => {
+const ShowInfo = ({ schedule, runtime, genres, status }: Show) => {
   return (
-    <div className="flex justify-between p-8 w-9/12">
-      <div className="flex flex-col w-4/12">
-        <h3>Show info</h3>
-        <ul className="mt-4">
-          <li className="flex justify-between items-center h-10 border-b border-gray-500">
-            <p>Streamed on</p> <p className="text-gray-500">BBC Three</p>
-          </li>
-          <li className="flex justify-between items-center h-10 border-b border-gray-500">
-            <p>Streamed on</p> <p className="text-gray-500">BBC Three</p>
-          </li>
-          <li className="flex justify-between items-center h-10 border-b border-gray-500">
-            <p>Streamed on</p> <p className="text-gray-500">BBC Three</p>
-          </li>
-          <li className="flex justify-between items-center h-10 border-b border-gray-500">
-            <p>Streamed on</p> <p className="text-gray-500">BBC Three</p>
-          </li>
-          <li className="flex justify-between items-center h-10 border-b border-gray-500">
-            <p>Streamed on</p> <p className="text-gray-500">BBC Three</p>
-          </li>
-        </ul>
-      </div>
-      {/* Starring */}
-      <div className="flex flex-col w-4/12">
-        <h3>Starring</h3>
-        <ul className="mt-4">
-          <li className="flex justify-start gap-8 items-center h-10 border-b border-gray-500">
-            <div className="flex justify-start w-2/3 items-center">
-              <FontAwesomeIcon icon={faUser} className="mr-4" />
-              <p>Streamed on</p>
-            </div>
-            <p className="text-gray-500">Victoria </p>
-          </li>
-          <li className="flex justify-start gap-8 items-center h-10 border-b border-gray-500">
-            <div className="flex justify-start w-2/3 items-center">
-              <FontAwesomeIcon icon={faUser} className="mr-4" />{" "}
-              <p>Streamed on</p>
-            </div>
-            <p className="text-gray-500">Carol</p>
-          </li>
-          <li className="flex justify-start gap-8 items-center h-10 border-b border-gray-500">
-            <div className="flex justify-start w-2/3 items-center">
-              <FontAwesomeIcon icon={faUser} className="mr-4" />
-              <p>Streamed on</p>{" "}
-            </div>
-            <p className="text-gray-500">Beats</p>
-          </li>
-          <li className="flex justify-start gap-8 items-center h-10 border-b border-gray-500">
-            <div className="flex justify-start w-2/3 items-center">
-              <FontAwesomeIcon icon={faUser} className="mr-4" />
-              <p>Streamed on</p>
-            </div>{" "}
-            <p className="text-gray-500">Grindah</p>
-          </li>
-          <li className="flex justify-start gap-8 items-center h-10 border-b border-gray-500">
-            <div className="flex justify-start w-2/3 items-center">
-              <FontAwesomeIcon icon={faUser} className="mr-4" />
-              <p>Daniel Sylvester Woolford</p>
-            </div>{" "}
-            <p className="text-gray-500">Decoy</p>
-          </li>
-        </ul>
-      </div>
+    <div className="flex flex-col">
+      <h3>Show info</h3>
+      <ul className="space-y-5 mt-5 md:mt-10 text-sm md:text-base">
+        /
+        {schedule.days.length > 0 && (
+          <Info title="Days scheduled" value={schedule.days.join(", ")} />
+        )}
+        <Info title="Time" value={schedule.time} />
+        {runtime && (
+          <Info title="Runs for" value={formatDurationFromMinutes(runtime)} />
+        )}
+        <Info title="Status" value={status} />
+        {genres.length > 0 && <Info title="Genres" value={genres.join(", ")} />}
+      </ul>
     </div>
   );
 };

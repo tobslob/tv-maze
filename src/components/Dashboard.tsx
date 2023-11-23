@@ -1,65 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { z } from "zod";
+import {
+  Episode,
+  EpisodeSchema,
+  Episode as EpisodeType,
+  Show,
+} from "../interfaces";
 import List from "./List";
 import Header from "./Header";
 
-const items = [
-  {
-    id: 1,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 2,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 3,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 4,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 5,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 6,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 7,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 8,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 9,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 10,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-  {
-    id: 11,
-    name: "Lord of the ring",
-    title: "This is the title of the movie which is very long, isn't it?",
-  },
-];
-const Dashboard: React.FC = () => {
+export const getServerSideProps = async () => {
+  const res = await fetch(`https://api.tvmaze.com/schedule`);
+  const data = await res.json();
+  const shows = z.array(EpisodeSchema).parse(data);
+
+  return {
+    props: {
+      data: shows,
+    },
+  };
+};
+
+const Dashboard: React.FC = ({ data }: any) => {
+  const [items, setItems] = useState<Episode[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("https://api.tvmaze.com/schedule");
+      const data = await res.json();
+      const shows = z.array(EpisodeSchema).parse(data);
+      setItems(shows);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Header />
