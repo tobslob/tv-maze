@@ -3,8 +3,6 @@ import { z } from "zod";
 import {
   Episode,
   EpisodeSchema,
-  Episode as EpisodeType,
-  Show,
 } from "../interfaces";
 import List from "./List";
 import Header from "./Header";

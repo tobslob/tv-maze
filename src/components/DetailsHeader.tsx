@@ -32,6 +32,7 @@ const DetailsHeader = ({ rating, image, name, summary }: Show) => {
           <div className="flex mt-2 mb-2">
             {stars.map((_, index) => (
               <FontAwesomeIcon
+                key={index}
                 icon={faStar}
                 style={{ color: index < ratingScore ? "orange" : "gray" }}
               />

@@ -1,12 +1,9 @@
-import Dashboard from "@/components/Dashboard";
-import "./globals.css";
+import Dashboard from "../components/Dashboard";
 
-function MyApp() {
-  return (
-    <>
-      <Dashboard />
-    </>
-  );
-}
+const IndexPage = () => (
+  <>
+    <Dashboard />
+  </>
+);
 
-export default MyApp;
+export default IndexPage;

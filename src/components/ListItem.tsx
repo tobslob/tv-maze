@@ -11,17 +11,18 @@ const ListItem = ({ number, show: { id, name, rating, image } }: ShowType) => {
     <Link href={`/show/${id}`} className="w-40 h-72 ">
       <div className="w-full  bg-gray-400">
         <Image
-          src={image?.medium || "/assets/bookimage.jpeg"}
+          src={image?.medium || "/assets/show-cover.jpeg"}
           alt="Image 1"
           width={400}
           height={300}
           placeholder="blur"
-          blurDataURL="/assets/bookimage.jpeg"
+          blurDataURL="/assets/show-cover.jpeg"
         />
       </div>
       <div className="flex mt-2 mb-2">
         {stars.map((_, index) => (
           <FontAwesomeIcon
+            key={index}
             icon={faStar}
             style={{ color: index < ratingScore(rating) ? "orange" : "gray" }}
           />
