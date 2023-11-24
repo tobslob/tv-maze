@@ -19,13 +19,13 @@ const PersonSchema = z.object({
 });
 
 export const RatingSchema = z.object({
-  average: z.number(),
+  average: z.number().nullable(),
 });
 
 export const ShowSchema = z.object({
   id: z.number(),
   name: z.string(),
-  summary: z.string(),
+  summary: z.string().nullable(),
   rating: RatingSchema,
   image: ImageSchema,
   genres: z.array(z.string()),

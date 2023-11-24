@@ -7,7 +7,7 @@ import { Show } from "../interfaces";
 import { sanitizeHtml } from "../utils";
 
 const DetailsHeader = ({ rating, image, name, summary }: Show) => {
-  const sanitizedHtml = sanitizeHtml(summary);
+  const sanitizedHtml = sanitizeHtml(summary as string);
   const stars = Array.from({ length: 5 }, (_, i) => i + 1);
   const ratingScore = rating.average ? Math.floor(rating.average / 2) : 0;
 

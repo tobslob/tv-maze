@@ -9,7 +9,7 @@ const Character = ({ person, character }: Person) => {
           src={
             person.image && person.image.medium
               ? person.image.medium
-              : "/assets/show-cover.jpg"
+              : "/show-cover.jpg"
           }
           fill
           alt={person.name}
