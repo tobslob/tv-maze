@@ -14,7 +14,11 @@ export function formatDurationFromMinutes(totalMinutes: number): string {
   return formattedHours + formattedMinutes;
 }
 
-export function sanitizeHtml(htmlString: string) {
-  return htmlString.replace(/<\/?[^>]+(>|$)/g, "");
+export function sanitizeHtml(htmlString: string): string {
+  return htmlString?.replace(/<\/?[^>]+(>|$)/g, "");
 }
-export const stars = Array.from({ length: 5 }, (_, i) => i + 1);
+
+export function listItems(length: number): number[] {
+  return Array.from({ length }, (_, i) => i + 1);
+}
+
