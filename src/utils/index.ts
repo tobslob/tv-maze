@@ -15,7 +15,8 @@ export function formatDurationFromMinutes(totalMinutes: number): string {
 }
 
 export function sanitizeHtml(htmlString: string): string {
-  return htmlString?.replace(/<\/?[^>]+(>|$)/g, "");
+  const text = htmlString?.replace(/<\/?[^>]+(>|$)/g, "");
+  return text?.length > 380 ? `${text?.slice(0, 380)}...` : text;
 }
 
 export function listItems(length: number): number[] {

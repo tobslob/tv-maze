@@ -1,23 +1,15 @@
-import React from "react";
-import { Show } from "../interfaces";
+import { Show } from "@/interfaces";
 import Info from "./Info";
-import { formatDurationFromMinutes } from "@/utils";
 
-const ShowInfo = ({ schedule, runtime, genres, status }: Show) => {
+const ShowInfo = ({ schedule, genres, status, network }: Show) => {
   return (
-    <div className="flex flex-col">
-      <h3>Show info</h3>
-      <ul className="space-y-5 mt-5 md:mt-10 text-sm md:text-base">
-        /
-        {schedule.days.length > 0 && (
-          <Info title="Days scheduled" value={schedule.days.join(", ")} />
-        )}
-        <Info title="Time" value={schedule.time} />
-        {runtime && (
-          <Info title="Runs for" value={formatDurationFromMinutes(runtime)} />
-        )}
+    <div>
+      <h3 className="text-2xl mb-5">Show Info</h3>
+      <ul className="grid grid-cols-2 sm:grid-cols-1 sm:divide-y divide-black text-sm md:text-lg">
+        <Info title="Schedule" value={schedule?.days?.join(", ") || ""} />
+        <Info title="Streamed on" value={network?.name || ""} />
         <Info title="Status" value={status} />
-        {genres.length > 0 && <Info title="Genres" value={genres.join(", ")} />}
+        <Info title="Genres" value={genres?.join(", ") || ""} />
       </ul>
     </div>
   );

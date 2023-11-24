@@ -10,18 +10,18 @@ const Character = ({ person, character }: Person) => {
             src={person?.image?.medium || "/assets/show-cover.jpeg"}
             fill
             alt={person.name}
-            className="object-cover object-top rounded-full"
+            className={
+              person?.image?.medium
+                ? "object-cover object-top rounded-full"
+                : "object-cover object-center rounded-full"
+            }
             sizes="64px"
           />
         </div>
       </div>
       <div className="flex sm:flex-row flex-col w-full">
-        <p className="text-black w-full sm:w-2/6">
-          {person.name}
-        </p>
-        <p className="text-gray-400">
-          {character.name}
-        </p>
+        <p className="text-black w-full sm:w-2/6">{person.name}</p>
+        <p className="text-gray-400">{character.name}</p>
       </div>
     </>
   );
