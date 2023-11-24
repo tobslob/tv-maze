@@ -1,20 +1,27 @@
+import { AnimatePresence, motion } from "framer-motion";
 import "./globals.css";
 
-export async function getServerSideProps() {
-  // Fetch data from an API
-  const res = await fetch("https://api.tvmaze.com/schedule/full");
-  const data = await res.json();
-
-  return {
-    props: { data },
-  };
-}
+const spring = {
+  type: "spring",
+  damping: 20,
+  stiffness: 100,
+  when: "afterChildren",
+};
 
 function MyApp({ Component, pageProps }: any) {
   return (
-    <>
-      <Component {...pageProps} />
-    </>
+    <AnimatePresence>
+      <div className="page-transition-wrapper">
+        <motion.div
+          transition={spring}
+          initial={{ x: 20, opacity: 0.5 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -20, opacity: 0.5 }}
+        >
+          <Component {...pageProps} />
+        </motion.div>
+      </div>
+    </AnimatePresence>
   );
 }
 

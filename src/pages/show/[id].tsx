@@ -1,41 +1,61 @@
-import { Show } from "../../interfaces";
-import ShowInfo from "../../components/ShowInfo";
-import DetailsHeader from "../../components/DetailsHeader";
-import Cast from "../../components/Staring";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import DetailsHeader from "@/components/DetailsHeader";
+import ShowInfo from "@/components/ShowInfo";
+import Cast from "@/components/Staring";
+import { listItems } from "@/utils";
 
-type Props = {
-  item?: Show;
-  errors?: string;
-  params?: any;
-};
+const ShowPage = () => {
+  const router = useRouter();
+  const id = router.query.id as string;
 
-export const getServerSideProps = async ({ params }: Props) => {
-  const res = await fetch(
-    `https://api.tvmaze.com/shows/${params.id}?embed=cast`
-  );
-  const resJson = await res.json();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [items, setItems] = useState<any>(null);
 
-  return {
-    props: {
-      params: {
-        showId: params.id,
-      },
-      show: resJson,
-    },
-  };
-};
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!id) {
+        return;
+      }
 
-const ShowPage = ({ show }: any) => {
-  const cast = show._embedded?.cast.slice(0, 5);
+      try {
+        const res = await fetch(
+          `https://api.tvmaze.com/shows/${id}?embed=cast`
+        );
+        const resJson = await res.json();
+        setItems(resJson);
+      } catch (err: any) {
+        setError(err.message);
+        console.log('error ', err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  const cast = items?._embedded?.cast.slice(0, 5);
   return (
-    <div className="bg-black">
-      <DetailsHeader {...show} />
-      <main className="my-5 md:my-10 lg:mt-4 pb-20 lg:mb-20">
-        <div className="container grid lg:grid-cols-2 gap-10">
-          <ShowInfo {...show} />
-          {cast && cast.length > 0 && <Cast cast={cast} />}
+    <div>
+      <DetailsHeader {...items} />
+      {loading ? (
+        <div className="grid grid-cols-2 sm:grid-cols-6 sm:gap-8 gap-6 w-4/5 container">
+          {listItems(12).map((_, index) => (
+            <div
+              className="w-full bg-gray-400 h-[240px] animate-pulse"
+              key={index}
+            />
+          ))}
         </div>
-      </main>
+      ) : (
+        <main className="sm:-mt-48 pt-10 sm:pt-40 pb-16 z-10 bg-white">
+          <div className="grid lg:grid-cols-2 gap-10 w-full sm:w-auto px-8 sm:px-0 sm:mx-24">
+            <ShowInfo {...items} />
+            {cast && cast.length > 0 && <Cast cast={cast} />}
+          </div>
+        </main>
+      )}
     </div>
   );
 };

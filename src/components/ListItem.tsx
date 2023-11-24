@@ -1,35 +1,27 @@
-import React from "react";
-import Link from "next/link";
+import Star from "@/components/Star";
 import Image from "next/image";
-import { Episode as ShowType } from "../interfaces";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { ratingScore, stars } from "../utils";
+import Link from "next/link";
+import { Episode as ShowType } from "@/interfaces";
+import { ratingScore } from "@/utils";
 
-const ListItem = ({ number, show: { id, name, rating, image } }: ShowType) => {
+const ListItem = ({ show: { id, name, rating, image } }: ShowType) => {
   return (
-    <Link href={`/show/${id}`} className="w-40 h-72 ">
-      <div className="w-full  bg-gray-400">
+    <Link href={`/show/${id}`}>
+      <div className="w-full bg-gray-400">
         <Image
           src={image?.medium || "/assets/show-cover.jpeg"}
-          alt="Image 1"
+          alt={name}
           width={400}
           height={300}
           placeholder="blur"
           blurDataURL="/assets/show-cover.jpeg"
         />
       </div>
-      <div className="flex mt-2 mb-2">
-        {stars.map((_, index) => (
-          <FontAwesomeIcon
-            key={index}
-            icon={faStar}
-            style={{ color: index < ratingScore(rating) ? "orange" : "gray" }}
-          />
-        ))}
+      <div className="flex my-2 gap-1">
+        <Star score={ratingScore(rating)} />
       </div>
 
-      <p className="text-sm leading-5">{name}</p>
+      <p className="text-sm truncate w-full">{name}</p>
     </Link>
   );
 };
