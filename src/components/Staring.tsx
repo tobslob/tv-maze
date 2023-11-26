@@ -1,7 +1,7 @@
 import { Person } from "@/interfaces";
 import Character from "./Character";
 
-interface CastProps {
+export interface CastProps {
   cast: Person[];
 }
 const Cast = ({ cast }: CastProps) => {

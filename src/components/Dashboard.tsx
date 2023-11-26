@@ -18,7 +18,6 @@ const Dashboard: React.FC = ({ data }: any) => {
         setItems(shows);
       } catch (err: any) {
         setError(err.message);
-        console.log('error ', err.message);
       } finally {
         setLoading(false);
       }
