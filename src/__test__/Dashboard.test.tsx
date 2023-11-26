@@ -6,7 +6,7 @@ import { Episode } from "@/interfaces";
 
 jest.mock("axios");
 
-describe("", () => {
+describe("Dashboard Component", () => {
   it("should render fetched episodes", async () => {
     render(IndexPage());
 

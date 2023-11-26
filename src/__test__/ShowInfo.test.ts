@@ -6,7 +6,7 @@ import ShowInfo from "@/components/ShowInfo";
 
 jest.mock("axios");
 
-describe("", () => {
+describe("ShowInfo Component", () => {
   it("should render ShowInfo", async () => {
     (axios.get as jest.Mock).mockResolvedValue(mockShowWithCast)();
     const show: Show = await axios.get(
