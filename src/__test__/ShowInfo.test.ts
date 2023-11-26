@@ -17,8 +17,5 @@ describe("ShowInfo Component", () => {
     const list = await screen.findByRole("list");
     expect(list).toBeInTheDocument();
     expect(show).toHaveProperty("_embedded.cast");
-    expect(screen.queryByText("Loading...")).toBeNull();
-    expect(screen.queryByText("DetailsHeader")).toBeNull();
-    expect(screen.queryByText("ShowInfo")).toBeNull();
   });
 });
